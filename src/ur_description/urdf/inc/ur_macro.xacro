@@ -332,5 +332,15 @@
       <parent link="${prefix}flange"/>
       <child link="${prefix}tool0"/>
     </joint>
+
+    <!-- NEW addition -->
+    <!-- Used for fixing robot to Gazebo 'base_link' -->
+    <link name="world"/>
+
+    <joint name="fixed" type="fixed">
+      <parent link="world"/>
+      <child link="${prefix}base_link"/>
+    </joint>
+
   </xacro:macro>
 </robot>
