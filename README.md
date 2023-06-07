@@ -2,7 +2,7 @@
 FSM Internship : Robotics Project . Software package for object tracking and visual servoing of robotic arm on cobot
 
 ## Tasks
-- [ ] Visualizing Robot model in Gazebo
+- [X] Visualizing Robot model in Gazebo
 - [ ] Motion planning of arm using Moveit
 - [ ] Detection of object using camera
 - [ ] Object tracking and Visual servoing of robot arm
@@ -29,3 +29,4 @@ roslaunch robot_arm ur5_empty_world.launch
 1. https://github.com/ros-industrial/universal_robot.git
 2. https://github.com/DH-Robotics/dh_gripper_ros.git
 3. https://ros-planning.github.io/moveit_tutorials/doc/getting_started/getting_started.html
+4. https://youtu.be/1DTO4tzjJ0I
