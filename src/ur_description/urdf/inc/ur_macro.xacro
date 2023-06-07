@@ -334,6 +334,21 @@
     </joint>
 
     <!-- NEW addition -->
+
+    <!-- DH Robotics Gripper-->
+    <xacro:include filename="$(find dh_robotics_ag95_description)/urdf/dh_robotics_ag95_gripper.urdf.xacro" />
+    
+    <!-- <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"> 
+            <robotNamespace>/</robotNamespace>
+            <legacyModeNS>true</legacyModeNS>
+        </plugin> 
+    </gazebo> -->
+
+    <xacro:dh_robotics_ag95_gripper prefix="" parent="${prefix}tool0" >
+        <origin xyz="0 0 0" rpy="0 0 ${pi/2}"/>
+    </xacro:dh_robotics_ag95_gripper>
+
     <!-- Used for fixing robot to Gazebo 'base_link' -->
     <link name="world"/>
 
