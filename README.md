@@ -17,6 +17,9 @@ cd Object_follower_UR5
 ```
 ```
 catkin_make
+```
+Note : If error like this : ' Invoking "make -j16 -l16" failed ' comes then please use command catkin_make -j4 ( if your pc has 4 cores ) or catkin_make -j8 ( if your pc has 8 cores )
+```
 source devel/setup.bash
 ```
 ```
