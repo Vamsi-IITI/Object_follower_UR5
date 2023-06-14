@@ -337,25 +337,133 @@
 
     <!-- DH Robotics Gripper-->
     <xacro:include filename="$(find dh_robotics_ag95_description)/urdf/dh_robotics_ag95_gripper.urdf.xacro" />
-    
-    <!-- <gazebo>
-        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"> 
-            <robotNamespace>/</robotNamespace>
-            <legacyModeNS>true</legacyModeNS>
-        </plugin> 
-    </gazebo> -->
 
     <xacro:dh_robotics_ag95_gripper prefix="" parent="${prefix}tool0" >
         <origin xyz="0 0 0" rpy="0 0 ${pi/2}"/>
     </xacro:dh_robotics_ag95_gripper>
 
-    <!-- Used for fixing robot to Gazebo 'base_link' -->
-    <link name="world"/>
+    <!-- <xacro:property name="camera_link" value="0.005" />
+    <xacro:property name="height3" value="0.0" />
+    <xacro:property name="axel_offset" value="0.0" /> -->
 
-    <joint name="fixed" type="fixed">
-      <parent link="world"/>
-      <child link="${prefix}base_link"/>
+    <!-- <joint name="camera_joint" type="fixed">
+      <axis xyz="0 1 0" />
+        <origin xyz="${camera_link*2} 0 ${height3 - axel_offset*2}" rpy="0 0 0"/>
+        <parent link="gripper_finger1_inner_knuckle_link"/>
+        <child link="camera_link"/>
     </joint>
+    <link name="camera_link">
+      <collision>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+        <box size="${camera_link} ${camera_link} ${camera_link}"/>
+            </geometry>
+        </collision>
+        <visual>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+          <geometry>
+        <box size="${camera_link} ${camera_link} ${camera_link}"/>
+          </geometry>
+        </visual>
+    </link> -->
+
+    <!-- Camera --> 
+    <link name='camera_link'>
+    <box_inertia m="0" x="0.02" y="0.02" z="0.02" />
+    <pose>0 0 0 0 0 0</pose>
+
+    <inertial>
+      <mass value="0.1"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <inertia
+          ixx="1e-6" ixy="0" ixz="0"
+          iyy="1e-6" iyz="0"
+          izz="1e-6"
+      />
+    </inertial>
+
+    <collision name='collision'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/> 
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+    </collision>
+
+    <visual name='camera_visual'>
+      <origin xyz="0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+      <material name="red">
+        <color rgba="0.8 0 0 1"/>
+      </material>
+    </visual>
+
+  </link>
+
+  <joint type="fixed" name="camera_joint">
+    <origin xyz="0.035 0 0.08" rpy="0 0 0"/>
+    <child link="camera_link"/>
+    <parent link="${prefix}tool0"/>
+    <axis xyz="0 1 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="camera_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.5707 0 -1.5707"/>
+    <parent link="camera_link"/>
+    <child link="camera_link_optical"/>
+  </joint>
+
+  <link name="camera_link_optical">
+  </link>
+
+  <!-- Used for fixing robot to Gazebo 'base_link' -->
+  <!-- <link name="world"/>
+
+  <joint name="fixed" type="fixed">
+    <parent link="world"/>
+    <child link="${prefix}base_link"/>
+  </joint> -->
+
+  <gazebo reference="camera_link">
+        <sensor type="camera" name="camera">
+        <update_rate>30.0</update_rate>
+        <camera name="head">
+            <horizontal_fov>1.3962634</horizontal_fov>
+            <image>
+            <width>800</width>
+            <height>800</height>
+            <format>R8G8B8</format>
+            </image>
+            <clip>
+            <near>0.02</near>
+            <far>300</far>
+            </clip>
+            <noise>
+            <type>gaussian</type>
+            <!-- Noise is sampled independently per pixel on each frame.
+                That pixel's noise value is added to each of its color
+                channels, which at that point lie in the range [0,1]. -->
+            <mean>0.0</mean>
+            <stddev>0.007</stddev>
+            </noise>
+        </camera>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>camera1</cameraName>
+            <imageTopicName>image_raw</imageTopicName>
+            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+            <frameName>camera_link</frameName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+        </plugin>
+        </sensor>
+  </gazebo>
 
   </xacro:macro>
 </robot>

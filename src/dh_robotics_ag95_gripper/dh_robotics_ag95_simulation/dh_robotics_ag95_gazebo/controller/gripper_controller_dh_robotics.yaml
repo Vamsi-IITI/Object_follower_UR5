@@ -2,6 +2,12 @@ gripper:
   type: position_controllers/JointTrajectoryController
   joints:
      - gripper_finger1_joint
+
+  # Added random pid values here
+  # gains: # Required because we're controlling an effort interface
+  #   gripper_finger1_joint: {p: 500,  d: 1, i: 1, i_clamp: 1}
+  ################################
+
   constraints:
       goal_time: 0.6
       stopped_velocity_tolerance: 0.05
