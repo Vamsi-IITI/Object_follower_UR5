@@ -3,22 +3,79 @@
 <launch>
 
   <!-- World File -->
-  <arg name="world_file" default="$(find robot_arm)/worlds/empty.world"/>
+  <!-- <arg name="world_file" default="$(find robot_arm)/worlds/empty.world"/> -->
 
   <!-- Launch Gazebo World -->
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+  <!-- <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="use_sim_time" value="true"/>
     <arg name="debug" value="false"/>
     <arg name="gui" value="true" />
     <arg name="world_name" value="$(arg world_file)"/>
+  </include> -->
+
+  <!--Robot description and related parameter files -->
+  <arg name="robot_description_file" default="$(find ur_gazebo)/launch/inc/load_ur5.launch.xml" doc="Launch file which populates the 'robot_description' parameter."/>
+  <arg name="joint_limit_params" default="$(find ur_description)/config/ur5/joint_limits.yaml"/>
+  <arg name="kinematics_params" default="$(find ur_description)/config/ur5/default_kinematics.yaml"/>
+  <arg name="physical_params" default="$(find ur_description)/config/ur5/physical_parameters.yaml"/>
+  <arg name="visual_params" default="$(find ur_description)/config/ur5/visual_parameters.yaml"/>
+
+  <!-- Controller configuration -->
+  <arg name="controller_config_file" default="$(find ur_gazebo)/config/ur5_controllers.yaml" doc="Config file used for defining the ROS-Control controllers."/>
+  <arg name="controllers" default="joint_state_controller eff_joint_traj_controller" doc="Controllers that are activated by default."/>
+  <arg name="stopped_controllers" default="joint_group_eff_controller" doc="Controllers that are initally loaded, but not started."/>
+
+  <rosparam file="$(find dh_robotics_ag95_gazebo)/controller/gripper_controller_dh_robotics.yaml" command="load"/>
+  <!-- Fake Calibration -->
+  <!-- <node pkg="rostopic" type="rostopic" name="fake_joint_calibration"
+        args="pub /calibrated std_msgs/Bool true" /> --> 
+
+  <!-- robot_state_publisher configuration -->
+  <arg name="tf_prefix" default="" doc="tf_prefix used for the robot."/>
+  <arg name="tf_pub_rate" default="125" doc="Rate at which robot_state_publisher should publish transforms."/>
+
+  <!-- Gazebo parameters -->
+  <!-- <arg name="paused" default="false" doc="Starts Gazebo in paused mode" />
+  <arg name="gui" default="true" doc="Starts Gazebo gui" /> -->
+
+  <!-- Load urdf on the parameter server -->
+  <include file="$(arg robot_description_file)">
+    <arg name="joint_limit_params" value="$(arg joint_limit_params)"/>
+    <arg name="kinematics_params" value="$(arg kinematics_params)"/>
+    <arg name="physical_params" value="$(arg physical_params)"/>
+    <arg name="visual_params" value="$(arg visual_params)"/>
   </include>
 
-  <!-- Launch other relevant files-->
-  <include file="$(find robot_arm)/launch/robot_description.launch"/>
+  <!-- Robot state publisher -->
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+    <param name="publish_frequency" type="double" value="$(arg tf_pub_rate)" />
+    <param name="tf_prefix" value="$(arg tf_prefix)" />
+  </node>
 
-  <!-- Spawn UR5 -->
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find robot_arm)/urdf/ur5.xacro'"/>
-  
-  <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model ur5 -x 0 -y 0 -z 0.1 -R 0 -P 0 -Y 0 -param robot_description" />
+  <!-- Start the 'driver' (ie: Gazebo in this case) -->
+  <include file="$(find ur_gazebo)/launch/inc/ur_control.launch.xml">
+    <arg name="controller_config_file" value="$(arg controller_config_file)"/>
+    <arg name="controllers" value="$(arg controllers)"/>
+    <arg name="gazebo_world" default="worlds/empty.world" doc="The '.world' file to load in Gazebo." />
+    <arg name="gui" value="true"/>
+    <arg name="paused" value="false"/>
+    <arg name="stopped_controllers" value="$(arg stopped_controllers)"/>
+  </include>
+
+  <!-- Start the move_group node --><!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
+  <!-- <include file="$(find robot_arm_moveit_config)/launch/move_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>
+    <arg name="moveit_controller_manager" value="fake" />
+    <arg name="fake_execution_type" value="interpolate"/>
+    <arg name="info" value="true"/>
+    <arg name="debug" value="false"/>
+    <arg name="pipeline" value="ompl"/>
+    <arg name="load_robot_description" value="true"/>
+  </include> -->
+
+  <!-- Run Rviz and load the default config to see the state of the move_group node -->
+  <!-- <include file="$(find robot_arm_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="rviz_config" value="$(find robot_arm_moveit_config)/launch/moveit.rviz"/>
+  </include> -->
 
 </launch>
