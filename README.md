@@ -3,7 +3,7 @@ FSM Internship : Robotics Project . Software package for object tracking and vis
 
 ## Tasks
 - [X] Visualizing Robot model in Gazebo
-- [ ] Motion planning of arm using Moveit
+- [X] Motion planning of arm using Moveit
 - [ ] Detection of object using camera
 - [ ] Object tracking and Visual servoing of robot arm
 - [ ] Motion prediction ( to improve tracking ) . Use of filters like Kalman filters , etc.
@@ -29,4 +29,6 @@ roslaunch robot_arm ur5_empty_world.launch
 1. https://github.com/ros-industrial/universal_robot.git
 2. https://github.com/DH-Robotics/dh_gripper_ros.git
 3. https://ros-planning.github.io/moveit_tutorials/doc/getting_started/getting_started.html
-4. https://youtu.be/1DTO4tzjJ0I
+4. https://www.youtube.com/watch?v=b4T577d39dE&t=281s
+5. https://youtu.be/1DTO4tzjJ0I
+6. https://answers.ros.org/question/372866/how-to-save-and-read-load-a-trajectory/
