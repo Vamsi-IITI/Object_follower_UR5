@@ -68,6 +68,8 @@
       </actuator>
     </transmission>
 
+    <!-- <xacro:include filename="$(find dh_robotics_ag95_description)/urdf/dh_robotics_ag95_gripper.transmission.xacro" /> -->
+
   </xacro:macro>
 
 </robot>
