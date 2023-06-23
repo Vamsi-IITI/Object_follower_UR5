@@ -1,0 +1,12 @@
+/home/raghu/yolov3/JPEGImages/box0051_jpg.rf.486d79027f98e832feb98afbf2abc4ae.jpg
+/home/raghu/yolov3/JPEGImages/box0051_jpg.rf.7aba4d81ae9fc3e523f79d54d823a5bd.jpg
+/home/raghu/yolov3/JPEGImages/box0051_jpg.rf.a6564492a451fa01eefd0e62f2ce9e5a.jpg
+/home/raghu/yolov3/JPEGImages/box0052_jpg.rf.b0e96d012b8bd08150217d72a29a3adb.jpg
+/home/raghu/yolov3/JPEGImages/box0053_jpg.rf.91efe3928a8e2b1e3029379908854fd5.jpg
+/home/raghu/yolov3/JPEGImages/box0053_jpg.rf.c6324b5733be8bac3bde74896d47e72e.jpg
+/home/raghu/yolov3/JPEGImages/box0055_png.rf.eb4dd8e7c204dc269fd1b5798f573c99.jpg
+/home/raghu/yolov3/JPEGImages/box0056_png.rf.29105faa6e3fd788b8b16af2cd63f185.jpg
+/home/raghu/yolov3/JPEGImages/box0056_png.rf.3d9195cda20b2db4bc3e523b65cc6001.jpg
+/home/raghu/yolov3/JPEGImages/box0056_png.rf.588ec27abffd6fdfae841cbf3fd53ca8.jpg
+/home/raghu/yolov3/JPEGImages/box0057_png.rf.15ca7f2d5ac2090380b052c9a92bff18.jpg
+/home/raghu/yolov3/JPEGImages/box0057_png.rf.30bdda6560968fbe138cbbe4c4b27b49.jpg
