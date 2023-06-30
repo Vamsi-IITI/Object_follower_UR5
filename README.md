@@ -16,6 +16,9 @@ git clone https://github.com/Vamsi-IITI/Object_follower_UR5.git
 cd Object_follower_UR5
 ```
 ```
+rosdep install --from-paths src --ignore-src -r -y
+```
+```
 catkin_make
 ```
 *Note : If error like this : ' **Invoking "make -j16 -l16" failed** ' comes then please use command ```catkin_make -j4``` ( if your pc has 4 cores ) or ```catkin_make -j8``` ( if your pc has 8 cores )*
@@ -48,3 +51,11 @@ catkin_make -DCMAKE_BUILD_TYPE=Release
 6. https://youtu.be/1DTO4tzjJ0I
 7. https://answers.ros.org/question/372866/how-to-save-and-read-load-a-trajectory/
 8. https://medium.com/geekculture/yolov4-darknet-installation-and-usage-on-your-system-windows-linux-8dec2cea6e81#a59a
+
+## Testing ennvironment 
+```
+Lenovo Ideapad 5 @ Ryzen 7 5700U
+16 GB RAM , 512 GB SSD
+OS : Ubuntu 20.04.6 LTS ( Focal Fossa )
+ROS Distro : Noetic
+```
