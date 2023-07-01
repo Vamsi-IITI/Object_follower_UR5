@@ -24,24 +24,15 @@
   <arg name="controller_config_file" default="$(find ur_gazebo)/config/ur5_controllers.yaml" doc="Config file used for defining the ROS-Control controllers."/>
   <arg name="controllers" default="joint_state_controller eff_joint_traj_controller gripper" doc="Controllers that are activated by default."/>
   <arg name="stopped_controllers" default="joint_group_eff_controller" doc="Controllers that are initally loaded, but not started."/>
-
-  <!-- <rosparam file="$(find dh_robotics_ag95_gazebo)/controller/gripper_controller_dh_robotics.yaml" command="load"/> -->
-  <!-- Fake Calibration -->
-  <!-- <node pkg="rostopic" type="rostopic" name="fake_joint_calibration"
-        args="pub /calibrated std_msgs/Bool true" /> --> 
   
   <!-- Gripper PID parameters -->
-  <param name="p" value="100000000.0" />
+  <!-- <param name="p" value="100000000.0" />
   <param name="i" value="0" />
-  <param name="d" value="1" />
+  <param name="d" value="1" /> -->
 
   <!-- robot_state_publisher configuration -->
   <arg name="tf_prefix" default="" doc="tf_prefix used for the robot."/>
   <arg name="tf_pub_rate" default="125" doc="Rate at which robot_state_publisher should publish transforms."/>
-
-  <!-- Gazebo parameters -->
-  <!-- <arg name="paused" default="false" doc="Starts Gazebo in paused mode" />
-  <arg name="gui" default="true" doc="Starts Gazebo gui" /> -->
 
   <!-- Load urdf on the parameter server -->
   <include file="$(arg robot_description_file)">

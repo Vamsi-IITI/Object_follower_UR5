@@ -41,11 +41,7 @@ gripper:
   joints:
     - gripper_finger1_joint
   gains:
-    gripper_finger1_joint: {p: 50,  d: 0.1, i: 0, i_clamp: 1}
-      # p: 50
-      # d: 1
-      # i: 1
-      # i_clamp: 1
+    gripper_finger1_joint: {p: 1,  d: 0.01, i: 0.01}      ## Not tuned
 
   constraints:
       goal_time: 0.6
@@ -54,4 +50,8 @@ gripper:
   stop_trajectory_duration: 0.5
   state_publish_rate:  25
   action_monitor_rate: 10
+
+gazebo_ros_control:
+  pid_gains:
+    gripper_finger1_joint: {p: 0.5, d: 0.01, i: 1}        ## Not tuned
   
