@@ -25,8 +25,13 @@ catkin_make
 ```
 source devel/setup.bash
 ```
+For robot visualization :
 ```
 roslaunch robot_arm ur5_empty_world.launch
+```
+For moveit rviz simulation :
+```
+roslaunch robot_arm_moveit_config demo.launch 
 ```
 ### Darknet ROS Installation 
 [darknet_ros](https://github.com/leggedrobotics/darknet_ros)
@@ -55,6 +60,7 @@ catkin_make -DCMAKE_BUILD_TYPE=Release
 ## Testing ennvironment 
 ```
 Lenovo Ideapad 5 @ Ryzen 7 5700U
+CPU : 8 cores , 16 threads . Integrated Graphics .
 16 GB RAM , 512 GB SSD
 OS : Ubuntu 20.04.6 LTS ( Focal Fossa )
 ROS Distro : Noetic
