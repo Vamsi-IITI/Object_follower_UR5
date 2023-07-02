@@ -21,7 +21,7 @@ rosdep install --from-paths src --ignore-src -r -y
 ```
 catkin_make
 ```
-*Note : If error like this : ' **Invoking "make -j16 -l16" failed** ' comes then please use command ```catkin_make -j4``` ( if your pc has 4 cores ) or ```catkin_make -j8``` ( if your pc has 8 cores )*
+>*Note : If error like this : ' **Invoking "make -j16 -l16" failed** ' comes then please use command **```catkin_make -j4```** ( if your pc has 4 cores ) or **```catkin_make -j8```** ( if your pc has 8 cores )*
 ```
 source devel/setup.bash
 ```
@@ -29,7 +29,7 @@ source devel/setup.bash
 ```
 roslaunch robot_arm ur5_empty_world.launch
 ```
-*Note : PID Gains of Gripper can be tuned further using Dynamic Reconfiguration ```rosrun rqt_reconfigure rqt_reconfigure```*
+>*Note : PID Gains of Gripper can be tuned further using Dynamic Reconfiguration **```rosrun rqt_reconfigure rqt_reconfigure```***
 
 *For **moveit rviz simulation** :*
 ```
