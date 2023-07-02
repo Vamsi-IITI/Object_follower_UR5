@@ -25,15 +25,17 @@ catkin_make
 ```
 source devel/setup.bash
 ```
-For robot visualization :
+*For **robot visualization** :*
 ```
 roslaunch robot_arm ur5_empty_world.launch
 ```
-For moveit rviz simulation :
+*Note : PID Gains of Gripper can be tuned further using Dynamic Reconfiguration ```rosrun rqt_reconfigure rqt_reconfigure```*
+
+*For **moveit rviz simulation** :*
 ```
 roslaunch robot_arm_moveit_config demo.launch 
 ```
-### Darknet ROS Installation 
+#### Darknet ROS Installation 
 [darknet_ros](https://github.com/leggedrobotics/darknet_ros)
 ```
 cd ~/Object_follower_UR5/src
@@ -48,14 +50,14 @@ cd ~/Object_follower_UR5
 catkin_make -DCMAKE_BUILD_TYPE=Release
 ```
 ## Useful links
-1. https://github.com/ros-industrial/universal_robot.git
-2. https://github.com/DH-Robotics/dh_gripper_ros.git
-3. https://github.com/leggedrobotics/darknet_ros 
-4. https://ros-planning.github.io/moveit_tutorials/doc/getting_started/getting_started.html
+1. [Universal Robotics UR5 arm](https://github.com/ros-industrial/universal_robot.git)
+2. [DH Robotics AG 95 Gripper](https://github.com/DH-Robotics/dh_gripper_ros.git)
+3. [Darknet ROS](https://github.com/leggedrobotics/darknet_ros)
+4. [Moveit Tutorials](https://ros-planning.github.io/moveit_tutorials/doc/getting_started/getting_started.html)
 5. https://www.youtube.com/watch?v=b4T577d39dE&t=281s
 6. https://youtu.be/1DTO4tzjJ0I
 7. https://answers.ros.org/question/372866/how-to-save-and-read-load-a-trajectory/
-8. https://medium.com/geekculture/yolov4-darknet-installation-and-usage-on-your-system-windows-linux-8dec2cea6e81#a59a
+8. [Yolo Darknet Guide](https://medium.com/geekculture/yolov4-darknet-installation-and-usage-on-your-system-windows-linux-8dec2cea6e81#a59a)
 
 ## Testing ennvironment 
 ```
