@@ -25,13 +25,13 @@ catkin_make
 ```
 source devel/setup.bash
 ```
-*For **robot visualization** :*
+*For **robot visualization** :* ( Task 1 )
 ```
 roslaunch robot_arm ur5_empty_world.launch
 ```
 >*Note : PID Gains of Gripper can be tuned further using Dynamic Reconfiguration **```rosrun rqt_reconfigure rqt_reconfigure```***
 
-*For **moveit rviz simulation** :*
+*For **moveit rviz simulation** :* ( Task 2 )
 ```
 roslaunch robot_arm_moveit_config demo.launch 
 ```
@@ -49,7 +49,7 @@ cd ~/Object_follower_UR5
 ```
 catkin_make -DCMAKE_BUILD_TYPE=Release
 ```
->> Note for testing performance of trained weights :
+## For testing performance of trained weights :
 > 
 > ```
 > cd ~
@@ -78,12 +78,13 @@ catkin_make -DCMAKE_BUILD_TYPE=Release
 > make
 > ```
 > Now copy obj.data , obj.names and yolov3_training.cfg files from ~/Object_follower_UR5/src/yolov3/cfg folder to cfg folder of darknet directory. Also place weights file in darknet directory
-> Now place any test image ( for example here it is two_boxes.png ) and run following command :
+> Now place any test image ( for example here it is two_boxes.png ) in darknet directory and run following command :
 > ```
 > cd ~/darknet
 > ./darknet detector test cfg/obj.data cfg/yolov3_training.cfg yolov3_training.weights two_boxes.png
 > ```
-> Watch the predictions of model!
+> Watch the predictions of model! (**Task 3 - Object Detection**)
+> 
 > ![predictions](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/5b41d583-c8f7-470b-807a-4629b3b6628e)
 
 
@@ -99,7 +100,7 @@ catkin_make -DCMAKE_BUILD_TYPE=Release
 9. [A Gentle Introduction to YOLO v4 for Object detection in Ubuntu 20.04](https://robocademy.com/2020/05/01/a-gentle-introduction-to-yolo-v4-for-object-detection-in-ubuntu-20-04/)
 10. [YOLO Object Detection | ROS Developers Live Class , By Construct](https://www.youtube.com/live/dB0Sijo0RLs?feature=share)
 
-## Testing ennvironment 
+## Testing environment 
 ```
 Lenovo Ideapad 5 @ Ryzen 7 5700U
 CPU : 8 cores , 16 threads . Integrated Graphics .
