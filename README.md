@@ -49,15 +49,55 @@ cd ~/Object_follower_UR5
 ```
 catkin_make -DCMAKE_BUILD_TYPE=Release
 ```
+>> Note for testing performance of trained weights :
+> 
+> ```
+> cd ~
+> git clone https://github.com/AlexeyAB/darknet.git
+> cd darknet
+> ```
+> ( Make sure you have downloaded necessary libraries , please refer to these guides [1](https://robocademy.com/2020/05/01/a-gentle-introduction-to-yolo-v4-for-object-detection-in-ubuntu-20-04/) and [2](https://medium.com/geekculture/yolov4-darknet-installation-and-usage-on-your-system-windows-linux-8dec2cea6e81#a59a) )
+>
+> Make changes in Makefile and save them using gedit or code (vs code)
+> ```
+> code Makefile
+> ```
+> For CPU build , set following parameters in Makefile :
+>> ```GPU=0
+>> CUDNN=0
+>> CUDNN_HALF=0
+>> OPENCV=1
+>> AVX=1
+>> OPENMP=1
+>> LIBSO=1  
+>> ZED_CAMERA=0
+>> ZED_CAMERA_v2_8=0
+>> ```
+>> Save the edited Makefile
+> ```
+> make
+> ```
+> Now copy obj.data , obj.names and yolov3_training.cfg files from ~/Object_follower_UR5/src/yolov3/cfg folder to cfg folder of darknet directory. Also place weights file in darknet directory
+> Now place any test image ( for example here it is two_boxes.png ) and run following command :
+> ```
+> cd ~/darknet
+> ./darknet detector test cfg/obj.data cfg/yolov3_training.cfg yolov3_training.weights two_boxes.png
+> ```
+> Watch the predictions of model!
+> ![predictions](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/5b41d583-c8f7-470b-807a-4629b3b6628e)
+
+
 ## Useful links
 1. [Universal Robotics UR5 arm](https://github.com/ros-industrial/universal_robot.git)
 2. [DH Robotics AG 95 Gripper](https://github.com/DH-Robotics/dh_gripper_ros.git)
 3. [Darknet ROS](https://github.com/leggedrobotics/darknet_ros)
 4. [Moveit Tutorials](https://ros-planning.github.io/moveit_tutorials/doc/getting_started/getting_started.html)
-5. https://www.youtube.com/watch?v=b4T577d39dE&t=281s
-6. https://youtu.be/1DTO4tzjJ0I
+5. [MoveIt Training for Beginners , By Construct](https://www.youtube.com/watch?v=b4T577d39dE&t=281s)
+6. [MoveIt! Robot Manipulators , By Robotics with Sakshay](https://youtu.be/1DTO4tzjJ0I)
 7. https://answers.ros.org/question/372866/how-to-save-and-read-load-a-trajectory/
 8. [Yolo Darknet Guide](https://medium.com/geekculture/yolov4-darknet-installation-and-usage-on-your-system-windows-linux-8dec2cea6e81#a59a)
+9. [A Gentle Introduction to YOLO v4 for Object detection in Ubuntu 20.04](https://robocademy.com/2020/05/01/a-gentle-introduction-to-yolo-v4-for-object-detection-in-ubuntu-20-04/)
+10. [YOLO Object Detection | ROS Developers Live Class , By Construct](https://www.youtube.com/live/dB0Sijo0RLs?feature=share)
 
 ## Testing ennvironment 
 ```
