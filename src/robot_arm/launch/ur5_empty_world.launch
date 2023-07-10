@@ -22,7 +22,7 @@
 
   <!-- Controller configuration -->
   <arg name="controller_config_file" default="$(find ur_gazebo)/config/ur5_controllers.yaml" doc="Config file used for defining the ROS-Control controllers."/>
-  <arg name="controllers" default="joint_state_controller eff_joint_traj_controller gripper" doc="Controllers that are activated by default."/>
+  <arg name="controllers" default="joint_state_controller arm_controller gripper" doc="Controllers that are activated by default."/>
   <arg name="stopped_controllers" default="joint_group_eff_controller" doc="Controllers that are initally loaded, but not started."/>
   
   <!-- Gripper PID parameters -->

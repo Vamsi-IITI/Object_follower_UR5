@@ -17,7 +17,7 @@
 
   <!-- Parameters we share with ur_robot_driver -->
   <arg name="controller_config_file" doc="Config file used for defining the ROS-Control controllers."/>
-  <arg name="controllers" default="joint_state_controller eff_joint_traj_controller gripper"/>
+  <arg name="controllers" default="joint_state_controller arm_controller gripper"/>
   <arg name="stopped_controllers" default="joint_group_eff_controller"/>
 
   <!-- Gazebo parameters -->
