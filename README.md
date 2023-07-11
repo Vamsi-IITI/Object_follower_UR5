@@ -25,13 +25,15 @@ catkin_make
 ```
 source devel/setup.bash
 ```
-*For **robot visualization** :* ( Task 1 )
+#### Robot visualization : *( Task 1 )*
 ```
 roslaunch robot_arm ur5_empty_world.launch
 ```
 >*Note : PID Gains of Gripper can be tuned further using Dynamic Reconfiguration **```rosrun rqt_reconfigure rqt_reconfigure```***
 
-*For **moveit rviz simulation** :* ( Task 2 )
+> For manual control of robot, open another terminal and run command **```rosrun rqt_joint_trajectory_controller rqt_joint_trajectory_controller```**
+
+#### Moveit Rviz simulation : *( Task 2 )*
 ```
 roslaunch robot_arm_moveit_config demo.launch 
 ```
@@ -50,6 +52,10 @@ cd ~/Object_follower_UR5
 catkin_make -DCMAKE_BUILD_TYPE=Release
 ```
 ## For testing performance of trained weights :
+
+#### Yolo v3 Darknet ( AlexeyAB )
+> * Download weights : [Here](https://drive.google.com/file/d/1-JaJxkmwgdYWnXGxo036-e2FO-l3whGm/view?usp=sharing)
+> * Download sample test images : [Here](https://drive.google.com/drive/folders/1HZXlCgzpd6g3R5YdNYnkyR-7H3vZwI0P?usp=sharing)
 > 
 > ```
 > cd ~
