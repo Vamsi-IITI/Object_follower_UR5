@@ -1,8 +1,13 @@
-#roboticsgroup_gazebo_plugins
+roboticsgroup_gazebo_plugins
+================
 
-##Collection of small gazebo plugins
- 
-###MimicJointPlugin
+This package has been **deprecated**. For the latest updates, visit [roboticsgroup_upatras_gazebo_plugins](https://github.com/roboticsgroup/roboticsgroup_upatras_gazebo_plugins).
+
+Collection of small gazebo plugins
+----------------------------------
+
+MimicJointPlugin
+----------------
 
 A simple (Model) plugin for Gazebo in order to add to Gazebo the mimic joint functionality that exists in URDF (ROS). Inspired by code of Goncalo Cabrita.
 
@@ -26,7 +31,7 @@ A simple (Model) plugin for Gazebo in order to add to Gazebo the mimic joint fun
 
     - maxEffort
 
-      A **double** specifying the max effort the mimic joint can generate. Defaults to 1.0.
+      A **double** specifying the max effort the mimic joint can generate. Defaults to the effort limit in the sdf model.
 
     - sensitiveness
 
@@ -34,13 +39,14 @@ A simple (Model) plugin for Gazebo in order to add to Gazebo the mimic joint fun
 
     - robotNamespace
 
-      A **string** specifying the namespace the robot is under. Defaults to '/'.
+      A **string** specifying the namespace the robot is under. Defaults to "".
 
     - hasPID
-    
-      Determines whether the joint has PID in order to be controlled via PID position/effort controller. Takes no value: *\<hasPID/\>* means that the mimic joint is controlled via PID. Ommit it so that the mimic joint is controlled via setAngle.
 
-###DisableLinkPlugin
+      Determines whether the joint has PID in order to be controlled via PID position/effort controller. *\<hasPID/\>* means that the mimic joint is controlled via PID. Omit it so that the mimic joint is controlled via setAngle. Optionally, specify a value to set the pid namespace.
+
+DisableLinkPlugin
+-----------------
 
 A simple (Model) plugin for Gazebo that allows you to disable a link in Gazebo's physics engine.
 
@@ -50,7 +56,7 @@ A simple (Model) plugin for Gazebo that allows you to disable a link in Gazebo's
 
       A **string** specifying the name of the link to be disabled. It should be a valid sdf (not urdf) link.
 
-###Hoping to add more plugins....
+### Hoping to add more plugins....
 
 Usage
 ------
