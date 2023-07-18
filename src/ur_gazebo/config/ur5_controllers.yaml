@@ -53,5 +53,5 @@ gripper:
 
 gazebo_ros_control:
   pid_gains:
-    gripper_finger1_joint: {p: 10, d: 0.01, i: 0}        ## Partially tuned using Dynamic Reconfiguration
+    gripper_finger1_joint: {p: 10.8, d: 0.02, i: 0}        ## Partially tuned using Dynamic Reconfiguration
   
