@@ -22,12 +22,23 @@
 
   <!-- Gazebo parameters -->
   <arg name="gazebo_model_name" default="robot" doc="The name to give to the model in Gazebo (after spawning it)." />
-  <arg name="gazebo_world" default="worlds/empty.world" doc="The '.world' file to load in Gazebo." />
   <arg name="gui" default="true" doc="If true, Gazebo UI is started. If false, only start Gazebo server." />
   <arg name="paused" default="false" doc="If true, start Gazebo in paused mode. If false, start simulation as soon as Gazebo has loaded." />
   <arg name="robot_description_param_name" default="robot_description" doc="Name of the parameter which contains the robot description (ie: URDF) which should be spawned into Gazebo." />
-  <arg name="spawn_z" default="0.1" doc="At which height the model should be spawned. NOTE: lower values will cause the robot to collide with the ground plane." />
   <arg name="start_gazebo" default="true" doc="If true, Gazebo will be started. If false, Gazebo will be assumed to have been started elsewhere." />
+
+  <!-- World file -->
+  <arg name="gazebo_world" default="$(find robot_arm)/worlds/empty.world"/>
+
+  <!-- Spawning position -->
+  <arg name="spawn_z" default="0.1" doc="At which height the model should be spawned. NOTE: lower values will cause the robot to collide with the ground plane." />
+  <!-- <arg name="spawn_z" default="0" />
+  <arg name="shoulder_lift_joint_initial_pos" default="-1.57" />
+  <arg name="elbow_joint_initial_pos" default="0" />
+  <arg name="shoulder_pan_joint_initial_pos" default="0" />
+  <arg name="wrist_1_joint_initial_pos" default="-1" />
+  <arg name="wrist_2_joint_initial_pos" default="-1.57" />
+  <arg name="wrist_3_joint_initial_pos" default="-1.57" /> -->
 
   <!-- Load controller settings -->
   <rosparam file="$(arg controller_config_file)" command="load"/>
@@ -47,13 +58,23 @@
       -model $(arg gazebo_model_name)
       -z $(arg spawn_z)"
     output="screen" respawn="false" />
+  <!-- <node name="spawn_gazebo_model" pkg="gazebo_ros" type="spawn_model"
+    args="
+      -urdf
+      -param $(arg robot_description_param_name)
+      -model $(arg gazebo_model_name)
+      -z $(arg spawn_z)
+      -J shoulder_lift_joint $(arg shoulder_lift_joint_initial_pos)
+      -J elbow_joint $(arg elbow_joint_initial_pos)
+      -J shoulder_pan_joint $(arg shoulder_pan_joint_initial_pos)
+      -J wrist_1_joint $(arg wrist_1_joint_initial_pos)
+      -J wrist_2_joint $(arg wrist_2_joint_initial_pos)
+      -J wrist_3_joint $(arg wrist_3_joint_initial_pos)"
+    output="screen" respawn="false" /> -->
 
   <!-- Load and start the controllers listed in the 'controllers' arg. -->
   <node name="ros_control_controller_spawner" pkg="controller_manager" type="spawner"
     args="$(arg controllers)" output="screen" respawn="false" />
 
-  <!-- Load other controllers, but do not start them -->
-  <node name="ros_control_stopped_spawner" pkg="controller_manager" type="spawner"
-    args="--stopped $(arg stopped_controllers)" output="screen" respawn="false" />
 
 </launch>
