@@ -1,29 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
-
+<?xml version="1.0"?>
 <launch>
-  <!-- Console launch prefix -->
-  <!-- <arg name="launch_prefix" default=""/> -->
-  <arg name="launch_prefix"   value="gdb -ex run --args"/>
-  <arg name="image" default="/camera/rgb/image_raw" />
 
-  <!-- Config and weights folder. -->
-  <arg name="yolo_weights_path"          default="$(find my_robot)/yolo_network_config/weights"/>
-  <arg name="yolo_config_path"           default="$(find my_robot)/yolo_network_config/cfg"/>
+    <node pkg="yolov8_ros" type="yolo_ros.py" name="yolov8_node" output="screen">
 
-  <!-- ROS and network parameter files -->
-  <arg name="ros_param_file"             default="$(find my_robot)/config/box.yaml"/>
-  <arg name="network_param_file"         default="$(find my_robot)/config/box_yolov3.yaml"/>
+        <!-- Download the official weights from the original repo -->
+        <param name="weights_path" type="str" value="$(find yolov8_ros)/model/best.pt"/>
 
-  <!-- Load parameters -->
-  <rosparam command="load" ns="darknet_ros" file="$(arg ros_param_file)"/>
-  <rosparam command="load" ns="darknet_ros" file="$(arg network_param_file)"/>
+        <!-- Path to a class_labels.txt file containing your desired class labels. The i-th entry corresponds to the i-th class id. For example, in coco class label 0 corresponds to 'person'. Files for the coco and berkeley deep drive datasets are provided in the 'class_labels/' directory. If you leave it empty then no class labels are visualized.-->
+        <param name="classes_path" type="str" value="$(find yolov8_ros)/model/box.txt" />
 
-  <!-- Start darknet and ros wrapper -->
-  <node pkg="darknet_ros" type="darknet_ros" name="darknet_ros" output="screen" launch-prefix="$(arg launch_prefix)">
-    <param name="weights_path"          value="$(arg yolo_weights_path)" />
-    <param name="config_path"           value="$(arg yolo_config_path)" />
-    <remap from="camera/rgb/image_raw"  to="$(arg image)" />
-  </node>
+        <!-- topic name to subscribe to -->
+        <param name="img_topic" type="str" value="/camera/rgb/image_raw" />
+        <param name="center_depth_topic" type="str" value="/camera/depth/image_raw"/>
+        <param name="queue_size" type="int" value="1" />
 
- <!--<node name="republish" type="republish" pkg="image_transport" output="screen" 	args="compressed in:=/front_camera/image_raw raw out:=/camera/image_raw" /> -->
+        <!-- flag whether to also publish image with the visualized detections -->
+        <param name="/visualize" type="bool" value="True" />
+ 
+    </node>
+
 </launch>
