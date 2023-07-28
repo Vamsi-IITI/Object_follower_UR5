@@ -5,19 +5,19 @@ import tf2_ros
 import tf2_geometry_msgs
 from geometry_msgs.msg import PointStamped, Point
 from yolov8_ros_msgs.msg import  ObjectLocations
+from robot_arm.srv import target_pose
 
 # Reference taken from --> tf2_ros_example.py: example showing how to use tf2_ros API
 # Link : https://gist.github.com/ravijo/cb560eeb1b514a13dc899aef5e6300c0
 
 class ObjectLocationConverterNode:
+
     def __init__(self):
-        rospy.init_node('object_location_converter_node')
+
+        rospy.init_node('target_localisation_node')
 
         # Subscribe to the ObjectLocation topic
         rospy.Subscriber('/yolov8/ObjectLocation', ObjectLocations, self.object_location_callback)
-
-        # Publish the object location in the world frame
-        # self.world_frame_pub = rospy.Publisher('/Target_Position', PointStamped, queue_size=1)
 
         # define source and target frame
         self.source_frame = "camera_link"
@@ -44,6 +44,23 @@ class ObjectLocationConverterNode:
             rospy.logerr('Unable to find the transformation from %s to %s' % (source_frame, target_frame) )
 
         return transformation
+    
+    def move_robot_arm_client(self, x, y, z):
+
+        # Send the target location to ros service "move_arm_to_target"
+        rospy.wait_for_service('/move_arm_to_target')
+
+        try:
+            move_arm_to_target = rospy.ServiceProxy('/move_arm_to_target', target_pose)
+            success , message = move_arm_to_target(x, y, z)
+            return success, message
+            # if success:
+            #     print(message)
+            # else:
+            #     rospy.loginfo("Task failed")
+
+        except rospy.ServiceException as e:
+            rospy.logerr("Service call failed: %s"%e)
 
     def object_location_callback(self, object_location_msg):
         
@@ -57,13 +74,16 @@ class ObjectLocationConverterNode:
 
         # Get the object location in the camera frame
         object_location_cam = Point(highest_prob_object.x, highest_prob_object.y, highest_prob_object.z)
-        print('Object location wrt camera frame: %s' % object_location_cam)
 
+        # Convert the object location from the camera frame to the world frame / base_link frame
         transformation = self.get_transformation(self.source_frame, self.target_frame)
         point_wrt_target = self.transform_point(transformation, object_location_cam)
-        print('Object location wrt world frame: %s' % point_wrt_target)
+
+        # Send coordinates to move_robot_arm_client
+        success, message = self.move_robot_arm_client(point_wrt_target[0], point_wrt_target[1], point_wrt_target[2])
         
 def main():
+
     converter_node = ObjectLocationConverterNode()
     rospy.spin()
 
