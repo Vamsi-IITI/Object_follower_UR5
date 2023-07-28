@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<launch>
+	<arg name="paused" default="false"/>
+	<arg name="gui" default="true"/>
+    
+	<!-- Start Gazebo -->
+	<include file="$(find gazebo_ros)/launch/empty_world.launch">
+		<arg name="paused" value="$(arg paused)"/>
+		<!-- <arg name="world_name" default="$(arg world)" /> -->
+		<arg name="gui" value="$(arg gui)"/>
+		<arg name="verbose" value="true"/>
+	</include>
+
+
+	<!-- any vehicle: iris, diff_rover, avia_vtol, typhoon_h480 etc -->
+	<arg name="vehicle" default="tank"/>
+	<arg name="arena" default="$(find sim_yolo)/models/$(arg vehicle)/$(arg vehicle).sdf"/>
+  	<node name="sdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+        args="-file $(arg arena) -sdf -z 0.15 -model $(arg vehicle)" />
+
+
+    <node pkg="yolov8_ros" type="yolo_ros.py" name="yolov8_node" output="screen">
+
+        <!-- Download the official weights from the original repo -->
+        <param name="weights_path" type="str" value="$(find yolov8_ros)/model/best.pt"/>
+
+        <!-- Path to a class_labels.txt file containing your desired class labels. The i-th entry corresponds to the i-th class id. For example, in coco class label 0 corresponds to 'person'. Files for the coco and berkeley deep drive datasets are provided in the 'class_labels/' directory. If you leave it empty then no class labels are visualized.-->
+        <param name="classes_path" type="str" value="$(find yolov8_ros)/model/box.txt" />
+
+        <!-- topic name to subscribe to -->
+        <param name="img_topic" type="str" value="/camera/rgb/image_raw" />
+        <param name="center_depth_topic" type="str" value="/camera/depth/image_raw"/>
+        <param name="queue_size" type="int" value="1" />
+
+        <!-- flag whether to also publish image with the visualized detections -->
+        <param name="/visualize" type="bool" value="True" />
+ 
+    </node>
+
+</launch>
