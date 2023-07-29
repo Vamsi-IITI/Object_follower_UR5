@@ -80,7 +80,8 @@ class ObjectLocationConverterNode:
         point_wrt_target = self.transform_point(transformation, object_location_cam)
 
         # Send coordinates to move_robot_arm_client
-        success, message = self.move_robot_arm_client(point_wrt_target[0], point_wrt_target[1], point_wrt_target[2])
+        message = self.move_robot_arm_client(point_wrt_target[0], point_wrt_target[1], point_wrt_target[2])
+        print(message)
         
 def main():
 
