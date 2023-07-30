@@ -29,12 +29,12 @@
         <joint name="wrist_2_joint" value="-0.7"/>
         <joint name="wrist_3_joint" value="-1.5707"/>
     </group_state>
-    <group_state name="reference_pose_2" group="arm">
-        <joint name="elbow_joint" value="0"/>
+    <group_state name="reference_pose_y" group="arm">
+        <joint name="elbow_joint" value="2.66"/>
         <joint name="shoulder_lift_joint" value="-1.5707"/>
-        <joint name="shoulder_pan_joint" value="0"/>
-        <joint name="wrist_1_joint" value="0"/>
-        <joint name="wrist_2_joint" value="-0.8"/>
+        <joint name="shoulder_pan_joint" value="1.5707"/>
+        <joint name="wrist_1_joint" value="-1.1"/>
+        <joint name="wrist_2_joint" value="1.5707"/>
         <joint name="wrist_3_joint" value="-1.5707"/>
     </group_state>
     <group_state name="open" group="two_finger_gripper">

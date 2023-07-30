@@ -52,12 +52,8 @@ class ObjectLocationConverterNode:
 
         try:
             move_arm_to_target = rospy.ServiceProxy('/move_arm_to_target', target_pose)
-            success , message = move_arm_to_target(x, y, z)
-            return success, message
-            # if success:
-            #     print(message)
-            # else:
-            #     rospy.loginfo("Task failed")
+            message = move_arm_to_target(x, y, z)
+            return message
 
         except rospy.ServiceException as e:
             rospy.logerr("Service call failed: %s"%e)
@@ -82,6 +78,10 @@ class ObjectLocationConverterNode:
         # Send coordinates to move_robot_arm_client
         message = self.move_robot_arm_client(point_wrt_target[0], point_wrt_target[1], point_wrt_target[2])
         print(message)
+
+        rospy.sleep(5)
+
+        rospy.signal_shutdown("Object location determined and sent to visual servoing. Shutting down node.")
         
 def main():
 

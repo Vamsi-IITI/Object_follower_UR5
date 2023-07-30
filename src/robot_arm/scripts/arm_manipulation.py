@@ -46,7 +46,7 @@ def main():
 
     # Set the target pose (position and orientation) where you want the UR5 arm to move
     target_pose = Pose()
-    target_pose.position.x = 0.5
+    target_pose.position.x = 0.5                                # Don't set it to 0 . It will raise error. Can put very small no. like 0.001 insted of zero
     target_pose.position.y = 0
     target_pose.position.z = 0.5
     

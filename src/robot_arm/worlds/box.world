@@ -68,7 +68,7 @@
     </light>
     <gui fullscreen='0'>
       <camera name='world_camera'>
-        <pose>1.95583 0.016843 0.752262 -0 0.119643 2.83218</pose>
+        <pose>4.23597 -2.18272 2.31332 -0 0.319643 2.53218</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>
@@ -199,7 +199,7 @@
     <state world_name='default'>
       <sim_time>0 0</sim_time>
       <real_time>0 0</real_time>
-      <wall_time>1690637249 95719106</wall_time>
+      <wall_time>1690710047 631691200</wall_time>
       <iterations>0</iterations>
       <model name='ground_plane'>
         <pose>0 0 0 0 -0 0</pose>
@@ -212,13 +212,13 @@
         </link>
       </model>
       <model name='small_box_aqua'>
-        <pose>-0.013698 0.55 0.05 1e-06 0 -2.2e-05</pose>
+        <pose>-0.014 0.75 0.05 -0 -0 -3.3e-05</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-0.013698 0.55 0.05 1e-06 0 -2.2e-05</pose>
+          <pose>-0.014 0.75 0.05 -0 -0 -3.3e-05</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-0.003515 -0.142464 -0.138908 2.85558 -0.036949 0.000162</acceleration>
-          <wrench>-0.003515 -0.142464 -0.138908 0 -0 0</wrench>
+          <acceleration>-0.146061 0.003524 0.1045 3.10462 -0.214072 3.14147</acceleration>
+          <wrench>-0.146061 0.003524 0.1045 0 -0 0</wrench>
         </link>
       </model>
       <light name='sun'>

@@ -35,7 +35,7 @@ def main():
     arm.set_planner_id("AnytimePathShortening")
 
     # Go to reference pose
-    arm.set_named_target("reference_pose_2")
+    arm.set_named_target("reference_pose_y")
     plan = arm.go(wait=True)  # Use 'wait=True' to wait for the execution to complete
     rospy.loginfo("UR5 arm moved to the reference pose!")
 

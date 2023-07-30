@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+    <node pkg="robot_arm" type="robot_arm_manipulation.py" name="pose_based_visual_servoing_server" output="screen">
+    </node>
+
+</launch>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+    <node pkg="robot_arm" type="move_arm_client.py" name="target_localisation_node" output="screen">
+    </node>
+
+</launch>
