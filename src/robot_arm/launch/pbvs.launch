@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+    <node pkg="robot_arm" type="pbvs.py" name="ur5_arm_manipulation" output="screen">
+    </node>
+
+</launch>
