@@ -71,7 +71,7 @@ roslaunch robot_arm pbvs.launch
 ```
 Enter target coordinates and let the script runs. Sometimes control gets aborted, but even then trajectory is executed. If arm doesn't reach correct position. Restart and rerun all the commands. The issue is here : [Link](https://answers.ros.org/question/349087/invalid-trajectory-start-point-deviates-from-current-robot-state-more-than-001-joint/) . I couldn't find any reliable solution for this issue. Increased tolerance to 0.1 in trajectory_execution_launch.xml file in arm_moveit_config but still it occurs. Re running all scripts helps !
 
-https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/e048cd37-e297-425a-b7d0-cd0c2587acfc
+https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/40a71098-75a3-4ca2-b300-feecf34b73ae
 
 [Video Demo](https://drive.google.com/file/d/10qvR62eNwggTM3F3-nZ5gw2PUTH4LDAz/view?usp=sharing)
 
@@ -219,7 +219,7 @@ source devel/setup.bash
 roslaunch robot_arm move_arm_client.launch
 ```
 
-https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/e05676f6-ff7c-4e00-8465-7f5a0a3283e4
+https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/248d24c2-4ae3-47e2-b161-423463974d1c
 
 [Video Demo](https://drive.google.com/file/d/10qvR62eNwggTM3F3-nZ5gw2PUTH4LDAz/view?usp=sharing)
 
@@ -234,39 +234,43 @@ Yolov8 ROS package - [Here](https://github.com/Vamsi-IITI/yolov8_ros)
 Yolov8 Training notebook , weights and dataset - [Here](https://github.com/Vamsi-IITI/box_yolov8.git)
 
 Training results : ( Trained over 25 epochs , best weights were choosen for use in project )
-![image](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/b6478750-81d3-4bd8-a97d-9b320e93c660)
+![image](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/4cce13ef-8852-4ea1-acff-56618835fd8e)
 
 * **Few results** :
 
-![image](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/21ee5e68-d198-42fc-8b84-579a74b2e0f1)
+![image](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/89e87e4e-dd0b-4840-b39a-97273bbeae19)
 
-![image](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/5a2c35b5-bf81-4b81-bc3e-f3cc91d3bcec)
+![image](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/aa646e44-b70b-4b34-acda-4df615ae8874)
 
-https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/640644c9-5f3f-42f6-bdbc-34bed0471b9c
+https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/487f34f9-e45a-469e-95db-f24d260d2b75
 
 * **yolov8_ros with pre-trained yolov8 nano weights** :
   
-![image](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/10bdcc3c-6368-4ecd-a784-b6713079eaa5)
+![image](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/5ef410ac-bb1a-46dd-b9ff-5174c914b020)
 
 * **yolov8_ros with custom weights** :
 
-![image](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/7e52439e-aa6e-4f09-9915-f1b187791f0a)
+![image](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/9a714994-9ef9-4057-8de2-f4c6f45d9bdd)
 
 * **Object localization using yolov8_ros and object_location_convertor_node.py** - 
 
-![Screenshot from 2023-07-30 15-27-45](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/5368a925-b1ac-4e79-a0a7-91e4ebccf59b)
+![Screenshot from 2023-07-30 15-27-45](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/ccb4892e-f877-49a4-a606-017f3af99b59)
+
 > Actual pose of center of closest face of box ( cube of side 0.1 m) : ( -0.014 , 0.744757 , 0.05 ) { look at pose of center of box shown in gazebo and calculate }
 > 
 > Determined pose : ( -0.18 , 0.725316 , -0.1337 )
 > 
 > The relative error is very less in determining y coordinate but it is large for x and z in this case
 
-![Screenshot from 2023-07-30 15-17-08](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/4db43b2c-232e-4a00-8d11-a68293d1b138)
+![Screenshot from 2023-07-30 15-17-08](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/3e022c77-046c-4ae5-8d13-a77d8ef9d9b2)
+
 > Actual pose of center of closest face of box ( cube of side 0.1 m) : ( 1.556259 , -0.0105 , 0.05 )
 > 
 > Determined pose : ( 1.554837 , 0.133255 , -0.1388 )
 > 
 > The relative error is very less in determining x coordinate but it is large for y and z in this case
+
+> **Note** : I couldn't determine the cause for these inaccuracies . One reason maybe because the center of bounding box doesn't lie exactly on the center of closest face. Or there is some issue with tf transformation between camera_link and base_link. These inaccuracies are the reason why some offset were manually added in robot_arm_manipulation.py so that it can nullify effects of these errors. While pbvs.py is for ideal case when there is no error in target location.
 
 ##### object_location_convertor_node.py script -
 ```
@@ -343,8 +347,6 @@ if __name__ == '__main__':
     main()
 
 ```
-
-> **Note** : I couldn't determine the cause for these inaccuracies . One reason maybe because the center of bounding box doesn't lie exactly on the center of closest face. Or there is some issue with tf transformation between camera_link and base_link. These inaccuracies are the reason why some offset were manually added in robot_arm_manipulation.py so that it can nullify effects of these errors. While pbvs.py is for ideal case when there is no error in target location.
 
 ### Yolov3 Darknet 
 
