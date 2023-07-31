@@ -3,9 +3,9 @@ FSM Internship : Robotics Project . Software package for object tracking and vis
 
 ## Tasks
 - [X] Visualizing Robot model in Gazebo
-- [X] Motion planning of arm using Moveit
-- [X] Detection of object using camera
-- [ ] Object tracking and Visual servoing of robot arm
+- [X] Motion planning of arm in Rviz using Moveit
+- [X] Object detection and localization
+- [X] 3D Pose estimation of object and Visual servoing of UR5 robotic arm
 - [ ] Motion prediction ( to improve tracking ) . Use of filters like Kalman filters , etc.
 
 ## Instructions for use
@@ -13,7 +13,10 @@ FSM Internship : Robotics Project . Software package for object tracking and vis
 git clone https://github.com/Vamsi-IITI/Object_follower_UR5.git
 ```
 ```
-cd Object_follower_UR5
+pip install ultralytics
+```
+```
+cd ~/Object_follower_UR5
 ```
 ```
 rosdep install --from-paths src --ignore-src -r -y
@@ -25,8 +28,11 @@ catkin_make
 ```
 source devel/setup.bash
 ```
+
 #### Robot visualization : *( Task 1 )*
 ```
+cd ~/Object_follower_UR5
+source devel/setup.bash
 roslaunch robot_arm ur5_empty_world.launch
 ```
 >*Note : PID Gains of Gripper can be tuned further using Dynamic Reconfiguration **```rosrun rqt_reconfigure rqt_reconfigure```***
@@ -35,64 +41,71 @@ roslaunch robot_arm ur5_empty_world.launch
 
 #### Moveit Rviz simulation : *( Task 2 )*
 ```
-roslaunch robot_arm_moveit_config demo.launch 
-```
-#### Darknet ROS Installation 
-[darknet_ros](https://github.com/leggedrobotics/darknet_ros)
-```
-cd ~/Object_follower_UR5/src
-```
-```
-git clone --recursive https://github.com/leggedrobotics/darknet_ros.git
-```
-```
 cd ~/Object_follower_UR5
+source devel/setup.bash
+roslaunch arm_moveit_config demo.launch 
 ```
-```
-catkin_make -DCMAKE_BUILD_TYPE=Release
-```
-## For testing performance of trained weights :
 
-#### Yolo v3 Darknet ( AlexeyAB )
-> * Download weights : [Here](https://drive.google.com/file/d/1-JaJxkmwgdYWnXGxo036-e2FO-l3whGm/view?usp=sharing)
-> * Download sample test images : [Here](https://drive.google.com/drive/folders/1HZXlCgzpd6g3R5YdNYnkyR-7H3vZwI0P?usp=sharing)
-> 
-> ```
-> cd ~
-> git clone https://github.com/AlexeyAB/darknet.git
-> cd darknet
-> ```
-> ( Make sure you have downloaded necessary libraries , please refer to these guides [1](https://robocademy.com/2020/05/01/a-gentle-introduction-to-yolo-v4-for-object-detection-in-ubuntu-20-04/) and [2](https://medium.com/geekculture/yolov4-darknet-installation-and-usage-on-your-system-windows-linux-8dec2cea6e81#a59a) )
->
-> Make changes in Makefile and save them using gedit or code (vs code)
-> ```
-> code Makefile
-> ```
-> For CPU build , set following parameters in Makefile :
->> ```GPU=0
->> CUDNN=0
->> CUDNN_HALF=0
->> OPENCV=1
->> AVX=1
->> OPENMP=1
->> LIBSO=1  
->> ZED_CAMERA=0
->> ZED_CAMERA_v2_8=0
->> ```
->> Save the edited Makefile
-> ```
-> make
-> ```
-> Now copy obj.data , obj.names and yolov3_training.cfg files from ~/Object_follower_UR5/src/yolov3/cfg folder to cfg folder of darknet directory. Also place weights file in darknet directory
-> Now place any test image ( for example here it is two_boxes.png ) in darknet directory and run following command :
-> ```
-> cd ~/darknet
-> ./darknet detector test cfg/obj.data cfg/yolov3_training.cfg yolov3_training.weights two_boxes.png
-> ```
-> Watch the predictions of model! (**Task 3 - Object Detection**)
-> 
-> ![predictions](https://github.com/Vamsi-IITI/Object_follower_UR5/assets/92263050/5b41d583-c8f7-470b-807a-4629b3b6628e)
+#### Teleoperation of Robot Arm to User-defined Target :
+Run the shell script:
+```s
+cd ~/Object_follower_UR5
+source devel/setup.bash
+./src/shell_scripts/pbvs.sh
+```
+**OR**
+```s
+cd ~/Object_follower_UR5
+source devel/setup.bash
+roslaunch robot_arm ur5_empty_world.launch
+```
+Wait for 5-6 seconds. Then, open another terminal and run following commands:
+```s
+source devel/setup.bash
+roslaunch arm_moveit_config moveit_planning_execution.launch
+```
+Wait for 5-6 seconds. Then, open another terminal and run following commands:
+```s
+source devel/setup.bash
+roslaunch robot_arm pbvs.launch
+```
+Enter target coordinates and let the script runs. Sometimes control gets aborted, but even then trajectory is executed. If arm doesn't reach correct position. Restart and rerun all the commands.
+> Note : pbvs.py script has ideal code for motion planning and execution of robotic arm towards a specified target
+> While robot_arm_manipulation.py script has to take into account the inaccuracies in location of target
 
+#### 3D Pose estimation of object and Pose-based Visual servoing of UR5 robotic arm : *( Task 4 )*
+Simply just run the shell script: (works for gnome terminal)
+```s
+cd ~/Object_follower_UR5
+source devel/setup.bash
+./src/shell_scripts/object_follower_ur5.sh
+```
+**OR**
+```s
+cd ~/Object_follower_UR5
+source devel/setup.bash
+roslaunch robot_arm box_world.launch
+```
+Wait for 5-6 seconds. Then, open another terminal and run following commands:
+```s
+source devel/setup.bash
+roslaunch arm_moveit_config moveit_planning_execution.launch
+```
+Wait for 5-6 seconds. Then, open another terminal and run following commands:
+```s
+source devel/setup.bash
+roslaunch robot_arm go_to_referencepos.launch
+```
+Wait till the execution of above script ends (~35 secs). Make sure box is detected. Then, open another terminal and run following commands:
+```s
+source devel/setup.bash
+roslaunch robot_arm robot_arm_manipulation.launch"
+```
+Wait for 5-6 seconds. Then, open another terminal and run following commands:
+```s
+source devel/setup.bash
+roslaunch robot_arm move_arm_client.launch
+```
 
 ## Useful links
 1. [Universal Robotics UR5 arm](https://github.com/ros-industrial/universal_robot.git)
