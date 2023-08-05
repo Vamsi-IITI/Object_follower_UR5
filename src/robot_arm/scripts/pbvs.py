@@ -93,6 +93,8 @@ def main():
     arm.go(wait=True)
     rospy.loginfo("UR5 arm moved to the target pose!")
 
+    rospy.sleep(20)
+
 if __name__ == '__main__':
     try:
         main()
