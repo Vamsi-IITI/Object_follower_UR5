@@ -159,6 +159,7 @@ def main():
 
     target_pose.position.x = target_pose.position.x - offset_x
     target_pose.position.y = target_pose.position.y - offset_y
+    target_pose.position.z = target_pose.position.z - 0.1          # Since the base of arm is 0.1 m above the ground
 
     # Set the planning target pose
     arm.set_pose_target(target_pose)
@@ -279,7 +280,7 @@ class yolo_class:
         self.yolo.fuse()
 
         self.img_subscriber = rospy.Subscriber(img_topic, Image, self.process_img_msg)
-        self.depht_subscriber = rospy.Subscriber(depth_topic, Image, self.depth_callback)
+        self.depth_subscriber = rospy.Subscriber(depth_topic, Image, self.depth_callback)
 
         self.camera_info_subscriber = rospy.Subscriber("/camera/depth/camera_info", CameraInfo, self.camera_info_callback)
 
@@ -399,9 +400,9 @@ def main(args):
 
     rospy.init_node('yolov8_node', anonymous=True)
 
-    weights_path = rospy.get_param("~weights_path", "")
-    classes_path = rospy.get_param("~classes_path", "")
-    img_topic =    rospy.get_param("~img_topic", "/usb_cam/image_raw")
+    weights_path = rospy.get_param("~weights_path", "yolov8n.pt")
+    classes_path = rospy.get_param("~classes_path", "$(find yolov8_ros)/model/coco.txt")
+    img_topic =    rospy.get_param("~img_topic", "/camera/rgb/image_raw")
     depth_topic =  rospy.get_param("~center_depth_topic", "/camera/depth/image_raw" )
     queue_size =   rospy.get_param("~queue_size", 1)
     visualize =    rospy.get_param("~visualize", False)

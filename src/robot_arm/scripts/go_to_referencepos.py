@@ -28,8 +28,8 @@ def main():
 
     # # Scaling factor for optionally reducing the maximum joint velocity and joint acceleration
     # # Currently both are set to 0.1 in joint_limits.yaml file of arm_moveit_config package. For max speed , set both to 1
-    # arm.set_max_velocity_scaling_factor(0.5)
-    # arm.set_max_acceleration_scaling_factor(0.5)
+    arm.set_max_velocity_scaling_factor(0.2)
+    arm.set_max_acceleration_scaling_factor(0.2)
 
     # Use Anytime Path Shortening as the planner
     arm.set_planner_id("AnytimePathShortening")

@@ -80,6 +80,7 @@ def main():
 
     target_pose.position.x = target_pose.position.x - offset_x
     target_pose.position.y = target_pose.position.y - offset_y
+    target_pose.position.z = target_pose.position.z - 0.1          # Since the base of arm is 0.1 m above the ground
 
     # Set the planning target pose
     arm.set_pose_target(target_pose)

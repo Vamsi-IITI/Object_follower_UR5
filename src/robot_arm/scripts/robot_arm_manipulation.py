@@ -56,7 +56,7 @@ def handle_move_arm_to_target(req):
     target_pose = Pose()
     target_pose.position.x = req.x + 0.2        ## x and y correspond to coordinates of center point of bounding box , the closest face of box is closer to arm than these values
     target_pose.position.y = req.y - 0.15       ## had to change to nullify inaccuracies of position
-    target_pose.position.z = 0.08               ## z values obtained from transformations have slight error as of now                        
+    target_pose.position.z = -0.03               ## z values obtained from transformations have slight error as of now                        
 
     # Set the target gripper orientation (horizontal pose)                           
     yaw_angle =  np.pi/2       # Had to set manually due to inaccuracy in target location  # Rotation angle around the vertical axis (z-axis)
