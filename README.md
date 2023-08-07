@@ -528,6 +528,14 @@ Yolov3 trained notebook, weights and dataset - [Here](https://github.com/Vamsi-I
 
 Though Yolov3 was successful in detecting objects in images but it didn't work properly with darknet_ros package. Also it had huge size ( ~ 250 MB ) leading to 0.1 FPS ( which is very low ) , Yolov3 Tiny had very less accuracy. darknet_ros was also causing some library conflicts on my PC. Hence I had to stop using these weights and package , and had to shift to Yolov8.
 
+## Future Improvements
+- [ ] Accurate 3D Pose Estimation of Target ( by improving existing code or using an alternate approach like Aruco Tags, RFID Tags )
+- [ ] Object tracking and Visual Servoing of Robot Arm ( Task 5 )
+- [ ] Migration to ROS2
+- [ ] Usage of Docker containers
+- [ ] Optimization for good performance on Edge Computing Devices
+- [ ] Robust code for dealing with sensor noises and other uncertainties of real world
+
 ## Useful links
 1. [ROS Wiki](http://wiki.ros.org/ROS/Tutorials)
 2. [Universal Robotics UR5 arm](https://github.com/ros-industrial/universal_robot.git) ( For UR5 robot arm related files )
